@@ -1,0 +1,81 @@
+swagger: '2.0'
+info:
+  title: 'Emi API Gateway'
+  description: 'A simple Express.js API providing health check, server info, and user listing.'
+  version: '1.0.0'
+schemes:
+  - https
+host: 'emi-api-110539651778.us-central1.run.app'
+basePath: '/'
+
+x-google-backend:
+  address: https://emi-api-110539651778.us-central1.run.app
+  protocol: h2
+
+paths:
+  /health:
+    get:
+      summary: 'Health check endpoint'
+      operationId: 'healthCheck'
+      description: 'Returns server health status'
+      responses:
+        200:
+          description: 'A successful response'
+          schema:
+            type: object
+            properties:
+              health:
+                type: string
+              timeStamp:
+                type: string
+                format: date-time
+
+  /:
+    get:
+      summary: 'Root endpoint providing server info'
+      operationId: 'rootInfo'
+      description: 'Returns server metadata'
+      responses:
+        200:
+          description: 'A successful response'
+          schema:
+            type: object
+            properties:
+              server:
+                type: string
+              timeStamp:
+                type: string
+                format: date-time
+
+  /list:
+    get:
+      summary: 'Retrieve the list of users'
+      operationId: 'listUsers'
+      description: 'Returns a list of user objects'
+      responses:
+        200:
+          description: 'A successful response'
+          schema:
+            type: object
+            properties:
+              users:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    age:
+                      type: integer
+                    country:
+                      type: string
+                    active:
+                      type: boolean
+                    last_login:
+                      type: string
+                      format: date-time
+              timeStamp:
+                type: string
+                format: date-time
